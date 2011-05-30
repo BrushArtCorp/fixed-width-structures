@@ -7,5 +7,5 @@ task :default => :test
 
 desc "unit tests"
 task :test do
-  exec 'bundle exec rspec test/**/*.rb'
+  exec 'bundle exec rspec -P test/**/*.rb ./'
 end
