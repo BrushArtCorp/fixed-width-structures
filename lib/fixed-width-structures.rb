@@ -1,0 +1,3 @@
+module FixedWidthStructures
+  # Your code goes here...
+end
