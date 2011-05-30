@@ -4,7 +4,7 @@ require "fixed-width-structures/version"
 
 Gem::Specification.new do |s|
   s.name        = "fixed-width-structures"
-  s.version     = FixedWidthStructures::VERSION
+  s.version     = FixedWidthStructure::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Clive Crous"]
   s.email       = ["clive@crous.co.za"]
