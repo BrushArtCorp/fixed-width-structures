@@ -39,6 +39,14 @@ class FixedWidthStructure
     add_attribute( attribute, "%#{length}.#{length}d", length, default_value )
   end
 
+  def self.filler( length, character = 'X' )
+    alphabetic( "filler_#{size}".to_sym, length, character*length )
+  end
+
+  def self.space( length )
+    filler( length, ' ' )
+  end
+
   def to_s
     self.class.attributes.to_a.sort{|a,b|a.last[:position]<=>b.last[:position]}.inject('') do |result,current|
       this = current.last[ :type ]%send(current.first)
