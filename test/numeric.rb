@@ -27,4 +27,15 @@ describe 'Numerics' do
     numeric.to_s.should == "12"
   end
 
+  it "should use zero as it's default" do
+    @numeric_class.numeric( :age, 3 )
+    @numeric_class.new.age.should == 0
+  end
+
+  it "should use an populate it's default when provided" do
+    @numeric_class.numeric( :age, 3, 11 )
+    numeric = @numeric_class.new
+    numeric.age.should == 11
+    numeric.to_s.should == '011'
+  end
 end

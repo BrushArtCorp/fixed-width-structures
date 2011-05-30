@@ -27,4 +27,16 @@ describe 'Alphabetics' do
     alphabetic.to_s.should == "Cli"
   end
 
+  it "should use an empty string as it's default" do
+    @alphabetic_class.alphabetic( :name, 3 )
+    @alphabetic_class.new.name.should == ''
+  end
+
+  it "should use an populate it's default when provided" do
+    @alphabetic_class.alphabetic( :name, 5, "bob" )
+    alphabetic = @alphabetic_class.new
+    alphabetic.name.should == 'bob'
+    alphabetic.to_s.should == 'bob  '
+  end
+
 end

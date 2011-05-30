@@ -1,6 +1,6 @@
 class FixedWidthStructure
 
-  def self.add_attribute( attribute, type, size )
+  def self.add_attribute( attribute, type, size, default_value = nil )
     @attributes ||= {}
     @attributes[ attribute.to_sym ] = {
       :type => type,
@@ -8,7 +8,15 @@ class FixedWidthStructure
       :position => self.size
     }
     increment_size( size )
-    attr_accessor attribute.to_sym
+    if default_value
+      define_method attribute do
+        value = instance_variable_get( "@#{attribute}" )
+        value ? value : default_value
+      end
+      attr_writer attribute.to_sym
+    else
+      attr_accessor attribute.to_sym
+    end
   end
 
   def self.attributes
@@ -23,20 +31,12 @@ class FixedWidthStructure
     @size = self.size + increment
   end
 
-  def self.alphabetic( attribute, length )
-    add_attribute( attribute, "%-#{length}.#{length}s", length )
-    define_method attribute do
-      value = instance_variable_get( "@#{attribute}" )
-      value ? value : ''
-    end
+  def self.alphabetic( attribute, length, default_value = '' )
+    add_attribute( attribute, "%-#{length}.#{length}s", length, default_value )
   end
 
-  def self.numeric( attribute, length )
-    add_attribute( attribute, "%#{length}.#{length}d", length )
-    define_method attribute do
-      value = instance_variable_get( "@#{attribute}" )
-      value ? value : 0
-    end
+  def self.numeric( attribute, length, default_value = 0 )
+    add_attribute( attribute, "%#{length}.#{length}d", length, default_value )
   end
 
   def to_s
